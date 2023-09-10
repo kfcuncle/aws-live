@@ -23,7 +23,7 @@ table = 'employee'
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('GetEmp.html')
+    return render_template('AddEmp.html')
 
 
 @app.route("/about", methods=['POST'])
@@ -80,16 +80,16 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
-@app.route("/getemp", methods=['POST'])
+@app.route("/getemp", methods=['GET'])
 def ReadEmp():
     emp_id = request.form['emp_id']
-    
+
     read_sql = "SELECT * FROM employee WHERE emp_id = %s"
     cursor = db_conn.cursor()
     cursor.execute(read_sql, (emp_id))
     result = cursor.fetchone()
-    print(result)
 
+    return render_template('GetEmpOutput.html', id=emp_id,fname=result[1],lname=result[2],interest=result[3],location=result[4],imp_url=result[5])
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
 
