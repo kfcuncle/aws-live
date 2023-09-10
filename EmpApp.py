@@ -80,7 +80,7 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
-@app.route("/fetchdata", methods=['POST'])
+@app.route("/getemp", methods=['POST'])
 def ReadEmp():
     emp_id = request.form['emp_id']
     
