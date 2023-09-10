@@ -80,6 +80,15 @@ def AddEmp():
     print("all modification done...")
     return render_template('AddEmpOutput.html', name=emp_name)
 
+@app.route("/fetchdata", methods=['POST'])
+def ReadEmp():
+    emp_id = request.form['emp_id']
+    
+    read_sql = "SELECT * FROM employee WHERE emp_id = %s"
+    cursor = db_conn.cursor()
+    cursor.execute(read_sql, (emp_id))
+    result = cursor.fetchone()
+    print(result)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
